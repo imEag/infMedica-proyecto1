@@ -1,41 +1,47 @@
-
-import json
 import csv
+from db_connection import db
+from pymongo import errors
 
 def handle_csv_files(path, file):
-  data = []
-  with open(f"{path}/{file}", newline='') as csvfile:
-      reader = csv.reader(csvfile, delimiter=';')
-      next(reader)
+  with open(f"{path}/{file}", newline='', encoding='utf-8') as csvfile:
+    reader = csv.reader(csvfile, delimiter=';')
+    next(reader)  # Skip the header row
 
-      for row in reader:
-          fecha = row[0]
-          id = row[7]
-          nombre = row[8]
-          apellido = row[9]
-          sexo = row[10]
-          edad = row[11]
-          dx_ppal = row[18]
-          proc_tp = row[12]
-          proc_ptt = row[13]
-          proc_fib = row[14]
-          
-          fila = {
-              'fecha': fecha,
-              'id': id,
-              'nombre': nombre,
-              'apellido': apellido,
-              'edad': edad,
-              'genero': sexo,
-              'diagnostico': dx_ppal,
-              'proc_tp': proc_tp,
-              'proc_ptt': proc_ptt,
-              'proc_fib': proc_fib
-          }
-          data.append(fila)
-      print(data)
+    for row in reader:
+      patient = format_patient_data(row)
+      save_patient_to_db(patient)
 
-  """ with open('assets/data', 'w') as jsonfile:
-      json.dump(data, jsonfile) """
+def format_patient_data(row):
+  dataToSave = {
+    "fecha": row[0],
+    "ID": row[7],
+    "nombres": row[8],
+    "apellidos": row[9],
+    "sexo": row[10],
+    "edad": row[11],
+    "dx": row[18],
+    "examenes": [{
+      "examen": "proc_tp",
+      "resultado": row[12]
+    },
+                {
+      "examen": "proc_ptt",
+      "resultado": row[13]
+    },
+    {
+      "examen": "proc_fib",
+      "resultado": row[14]
+    }]
+  }
+  print('Data to save:', dataToSave)
+  return dataToSave
 
-
+def save_patient_to_db(patient):
+  try:
+    if db.patients.find_one({"ID": patient["ID"]}):
+      print(f"Patient {patient['ID']} already exists in the database. Skipping save operation.")
+    else:
+      db.patients.insert_one(patient)
+      print(f"Patient {patient['ID']} saved successfully")
+  except errors.PyMongoError as e:
+    print(f"An error occurred while saving patient {patient['ID']}: {str(e)}")
