@@ -1,6 +1,5 @@
 import csv
-from db_connection import db
-from pymongo import errors
+from db_operations import save_patient_to_db
 
 def handle_csv_files(path, file):
   with open(f"{path}/{file}", newline='', encoding='utf-8') as csvfile:
@@ -33,15 +32,6 @@ def format_patient_data(row):
       "resultado": row[14]
     }]
   }
-  print('Data to save:', dataToSave)
+
   return dataToSave
 
-def save_patient_to_db(patient):
-  try:
-    if db.patients.find_one({"ID": patient["ID"]}):
-      print(f"Patient {patient['ID']} already exists in the database. Skipping save operation.")
-    else:
-      db.patients.insert_one(patient)
-      print(f"Patient {patient['ID']} saved successfully")
-  except errors.PyMongoError as e:
-    print(f"An error occurred while saving patient {patient['ID']}: {str(e)}")
