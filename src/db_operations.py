@@ -37,3 +37,15 @@ def delete_patient_by_ID(ID):
       print(f"Patient {ID} not found")
   except errors.PyMongoError as e:
     print(f"An error occurred while deleting patient {ID}: {str(e)}")
+    
+def update_patient_by_ID(ID, new_patient):
+  try:
+    patient = db.patients.find_one({"ID": ID})
+    if patient:
+      db.patients.update_one({"ID": ID}, {"$set": new_patient})
+      print(f"Patient {ID} updated successfully")
+    else:
+      print(f"Patient {ID} not found")
+  except errors.PyMongoError as e:
+    print(f"An error occurred while updating patient {ID}: {str(e)}")
+    
