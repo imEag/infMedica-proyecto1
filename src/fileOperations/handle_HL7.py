@@ -6,7 +6,6 @@ def handle_hl7_files(path, file):
     lista = txt_file.readlines()
 
   patient = format_patient_data(lista)
-  print(patient)
   save_patient_to_db(patient)
 
 def format_patient_data(lista):

@@ -7,7 +7,7 @@ from db_operations import get_all_patients, get_patient_by_ID, delete_patient_by
 
 def list_all_patients():
   patients = get_all_patients()
-  if patients:
+  if patients and patients.count() > 0:
     for patient in patients:
       print("Patient: \n")
       print(patient)
