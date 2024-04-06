@@ -2,12 +2,21 @@
   {
     "fecha": "",
     "ID": "",
-    "nombre": "",
-    "apellido": "",
+    "nombres": "",
+    "apellidos": "",
     "edad": "",
     "sexo": "",
     "dx": "",
-    "pruebas": [
+    "equipo": "",
+    "modelo": "",
+    "responsable": "",
+    "profesion": "",
+    "serial": "",
+    "ips": "",
+    "medico": "",
+    "especialidad": "",
+    "ingreso": "",
+    "examenes": [
       {
         "examen": "A1b",
         "resultado": "2313"
