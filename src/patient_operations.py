@@ -1,5 +1,4 @@
 import os
-from db_connection import db
 from fileOperations.handle_JSON import handle_json_files
 from fileOperations.handle_CSV import handle_csv_files
 from fileOperations.handle_HL7 import handle_hl7_files
