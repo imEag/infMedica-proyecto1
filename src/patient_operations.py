@@ -4,7 +4,7 @@ from fileOperations.handle_JSON import handle_json_files
 from fileOperations.handle_CSV import handle_csv_files
 from fileOperations.handle_HL7 import handle_hl7_files
 from fileOperations.createHL7 import create_hl7_file
-from db_operations import get_all_patients, get_patient_by_ID
+from db_operations import get_all_patients, get_patient_by_ID, delete_patient_by_ID
 
 def list_all_patients():
   patients = get_all_patients()
@@ -48,3 +48,10 @@ def update_patient_by_id():
   else:
     print("Patient not found \n")
     
+    
+def delete_patient_by_id():
+  id = input("Enter the ID of the patient: \n")
+  delete_patient_by_ID(id)
+  print("\n")
+  
+  

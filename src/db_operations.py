@@ -26,3 +26,14 @@ def get_patient_by_ID(ID):
   except errors.PyMongoError as e:
     print(f"An error occurred while getting patient {ID}: {str(e)}")
     return None
+  
+def delete_patient_by_ID(ID):
+  try:
+    patient = db.patients.find_one({"ID": ID})
+    if patient:
+      db.patients.delete_one({"ID": ID})
+      print(f"Patient {ID} deleted successfully")
+    else:
+      print(f"Patient {ID} not found")
+  except errors.PyMongoError as e:
+    print(f"An error occurred while deleting patient {ID}: {str(e)}")

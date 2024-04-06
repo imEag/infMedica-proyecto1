@@ -1,5 +1,5 @@
 from menu import menu
-from patient_operations import list_all_patients, search_patient_by_id, save_patients, update_patient_by_id
+from patient_operations import list_all_patients, search_patient_by_id, save_patients, update_patient_by_id, delete_patient_by_id
 
 while True:
   option = menu()
@@ -12,6 +12,8 @@ while True:
   elif option == "4":
     update_patient_by_id()
   elif option == "5":
+    delete_patient_by_id()
+  elif option == "6":
     break
   else:
     print("Invalid option")
