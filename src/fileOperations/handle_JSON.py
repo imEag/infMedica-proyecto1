@@ -1,6 +1,5 @@
 import json
-from db_connection import db
-from pymongo import errors
+from db_operations import save_patient_to_db
 
 def handle_json_files(path, file):
   with open(f"{path}/{file}", encoding='utf-8') as f:
@@ -39,13 +38,3 @@ def format_patient_data(patient):
   }
   
   return dataToSave
-
-def save_patient_to_db(patient):
-  try:
-    if db.patients.find_one({"ID": patient["ID"]}):
-      print(f"Patient {patient['ID']} already exists in the database. Skipping save operation.")
-    else:
-      db.patients.insert_one(patient)
-      print(f"Patient {patient['ID']} saved successfully")
-  except errors.PyMongoError as e:
-    print(f"An error occurred while saving patient {patient['ID']}: {str(e)}")
