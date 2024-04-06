@@ -1,0 +1,30 @@
+[
+  {
+    "fecha": "",
+    "ID": "",
+    "nombre": "",
+    "apellido": "",
+    "edad": "",
+    "sexo": "",
+    "dx": "",
+    "pruebas": [
+      {
+        "examen": "A1b",
+        "resultado": "2313"
+      },
+      {
+        "examen": "a1c",
+        "resultado": "asdf"
+      },
+      {
+        "examen": "a1c",
+        "resultado": "asdf"
+      },
+      {
+        "examen": "a1c",
+        "resultado": "asdf"
+      }
+    ],
+    "Comorbilidades": ["asdf1, asdf2, asdf3"]
+  }
+]
